@@ -1,4 +1,7 @@
-/* Tailwind CSS — Diretivas obrigatórias (deve ser a primeira coisa no arquivo) */
+/* Google Fonts — deve vir antes de tudo */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Tailwind CSS — Diretivas de base */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,8 +10,6 @@
    Simulador Interativo de Processo Isocórico — Folha de Estilos Global
    Física Termodinâmica • Trabalho Acadêmico • 06/10/2026
    ═══════════════════════════════════════════════════════════════════ */
-
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ───────────────────────────────────────────────────────────────────
    1. DESIGN TOKENS — Paleta e Variáveis Globais
