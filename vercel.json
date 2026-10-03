@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd isochoric-physics-sim && npm install && npm run build",
+  "outputDirectory": "isochoric-physics-sim/dist",
+  "installCommand": "echo 'install handled in buildCommand'"
+}
