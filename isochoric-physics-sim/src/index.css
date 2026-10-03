@@ -1,60 +1,606 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+/* Tailwind CSS — Diretivas obrigatórias (deve ser a primeira coisa no arquivo) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════
+   Simulador Interativo de Processo Isocórico — Folha de Estilos Global
+   Física Termodinâmica • Trabalho Acadêmico • 06/10/2026
+   ═══════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ───────────────────────────────────────────────────────────────────
+   1. DESIGN TOKENS — Paleta e Variáveis Globais
+   ─────────────────────────────────────────────────────────────────── */
 :root {
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Fontes */
+  --font-sans:  'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+  /* Paleta principal — Azul profundo científico */
+  --clr-bg-base:        hsl(224, 36%, 4%);
+  --clr-bg-surface:     hsl(224, 28%, 7%);
+  --clr-bg-elevated:    hsl(224, 24%, 10%);
+  --clr-bg-overlay:     hsl(224, 20%, 13%);
+
+  /* Acentos */
+  --clr-accent-cyan:    hsl(194, 90%, 55%);
+  --clr-accent-blue:    hsl(214, 85%, 60%);
+  --clr-accent-purple:  hsl(265, 80%, 68%);
+  --clr-accent-amber:   hsl(38, 95%, 58%);
+  --clr-accent-red:     hsl(4, 82%, 60%);
+  --clr-accent-emerald: hsl(158, 64%, 52%);
+
+  /* Texto */
+  --clr-text-primary:   hsl(213, 30%, 95%);
+  --clr-text-secondary: hsl(213, 20%, 70%);
+  --clr-text-muted:     hsl(213, 15%, 45%);
+
+  /* Bordas */
+  --clr-border-base:    hsl(220, 22%, 14%);
+  --clr-border-subtle:  hsl(220, 18%, 18%);
+
+  /* Sombras */
+  --shadow-sm:   0 1px 3px hsl(224 36% 2% / .5);
+  --shadow-md:   0 4px 16px hsl(224 36% 2% / .6);
+  --shadow-lg:   0 12px 40px hsl(224 36% 2% / .7);
+  --shadow-cyan: 0 0 24px hsl(194 90% 55% / .15);
+  --shadow-blue: 0 0 32px hsl(214 85% 60% / .15);
+
+  /* Raios de borda */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+
+  /* Transições */
+  --transition-fast:   150ms cubic-bezier(.4, 0, .2, 1);
+  --transition-normal: 250ms cubic-bezier(.4, 0, .2, 1);
+  --transition-slow:   400ms cubic-bezier(.4, 0, .2, 1);
+
+  /* Configurações gerais do root */
+  font-family: var(--font-sans);
   color-scheme: dark;
-  background-color: #050811;
-  color: #f1f5f9;
+  background-color: var(--clr-bg-base);
+  color: var(--clr-text-primary);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   2. RESET & BASE
+   ─────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #050811 75%);
+  background:
+    radial-gradient(circle at 1px 1px, hsl(213 30% 95% / .025) 1px, transparent 0),
+    radial-gradient(ellipse 80% 60% at 50% -10%, hsl(214 70% 20% / .55) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 70% at -5% 50%, hsl(265 60% 15% / .3) 0%, transparent 70%),
+    var(--clr-bg-base);
+  background-size: 28px 28px, 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
+/* ───────────────────────────────────────────────────────────────────
+   3. SCROLLBAR CUSTOMIZADA — Estilo científico refinado
+   ─────────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #090d16;
+  background: hsl(224 36% 5%);
+  border-left: 1px solid var(--clr-border-base);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+  background: linear-gradient(180deg, hsl(214 50% 25%), hsl(194 50% 20%));
+  border-radius: 99px;
+  border: 1px solid var(--clr-border-subtle);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: linear-gradient(180deg, hsl(214 60% 35%), hsl(194 60% 30%));
+}
+::-webkit-scrollbar-corner {
+  background: var(--clr-bg-base);
 }
 
-/* Custom Keyframe Animations */
+/* ───────────────────────────────────────────────────────────────────
+   4. TIPOGRAFIA — Hierarquia formal acadêmica
+   ─────────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--clr-text-primary);
+  line-height: 1.25;
+}
+
+h1 { font-size: clamp(1.35rem, 2.5vw, 1.75rem); font-weight: 800; }
+h2 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+h3 { font-size: clamp(0.95rem, 1.5vw, 1.1rem); }
+h4 { font-size: 0.9rem; font-weight: 600; }
+
+p { color: var(--clr-text-secondary); line-height: 1.75; }
+strong { color: var(--clr-text-primary); font-weight: 600; }
+
+code, .font-mono {
+  font-family: var(--font-mono) !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+::selection {
+  background: hsl(214 85% 60% / .3);
+  color: var(--clr-text-primary);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   5. ANIMAÇÕES — Keyframes premium
+   ─────────────────────────────────────────────────────────────────── */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 12px hsl(214 85% 60% / .2); }
+  50%       { box-shadow: 0 0 28px hsl(214 85% 60% / .45), 0 0 60px hsl(214 85% 60% / .15); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes heatShimmer {
+  0%   { opacity: .4; transform: translateY(0px) scaleX(1); }
+  50%  { opacity: .7; transform: translateY(-2px) scaleX(1.02); }
+  100% { opacity: .4; transform: translateY(0px) scaleX(1); }
+}
+
+@keyframes dangerPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(4 82% 60% / .4);
+    border-color: hsl(4 82% 60% / .6);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% {
+    box-shadow: 0 0 0 6px hsl(4 82% 60% / 0);
+    border-color: hsl(4 82% 60%);
   }
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.25s ease-out forwards;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
 }
 
-/* Glassmorphism helpers */
-.backdrop-blur-md {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+@keyframes shimmerSlide {
+  0%   { left: -60%; }
+  100% { left: 140%; }
 }
 
-/* Utility font mono */
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   6. CLASSES UTILITÁRIAS DE ANIMAÇÃO
+   ─────────────────────────────────────────────────────────────────── */
+.animate-fadeIn        { animation: fadeIn .3s ease-out forwards; }
+.animate-scaleIn       { animation: scaleIn .25s ease-out forwards; }
+.animate-spin-slow     { animation: spinSlow 8s linear infinite; }
+.animate-float         { animation: float 3s ease-in-out infinite; }
+.animate-glow-pulse    { animation: glowPulse 2.5s ease-in-out infinite; }
+.animate-heat-shimmer  { animation: heatShimmer 1.8s ease-in-out infinite; }
+.animate-danger-pulse  { animation: dangerPulse 1.2s ease-in-out infinite; }
+.animate-slide-right   { animation: slideInRight .3s ease-out forwards; }
+.animate-pulse         { animation: dangerPulse 1.5s ease-in-out infinite; }
+
+/* ───────────────────────────────────────────────────────────────────
+   7. GLASSMORPHISM — Sistema de camadas
+   ─────────────────────────────────────────────────────────────────── */
+.backdrop-blur-sm  { backdrop-filter: blur(4px);  -webkit-backdrop-filter: blur(4px);  }
+.backdrop-blur-md  { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.backdrop-blur-lg  { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+.backdrop-blur-xl  { backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); }
+
+.glass-card {
+  background: linear-gradient(135deg, hsl(224 28% 9% / .95) 0%, hsl(224 24% 7% / .85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(214 30% 20% / .5);
+  box-shadow: var(--shadow-md), inset 0 1px 0 hsl(213 30% 95% / .04);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.glass-card:hover {
+  border-color: hsl(214 40% 28% / .6);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 hsl(213 30% 95% / .06);
+}
+
+.glass-elevated {
+  background: linear-gradient(145deg, hsl(224 30% 10% / .98) 0%, hsl(224 26% 8% / .92) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid hsl(214 35% 22% / .55);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 hsl(213 30% 95% / .05), 0 0 80px hsl(214 60% 15% / .2);
+  border-radius: var(--radius-xl);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   8. BOTÕES — Sistema interativo premium
+   ─────────────────────────────────────────────────────────────────── */
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--clr-accent-blue);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   9. INPUTS RANGE — Sliders científicos estilizados
+   ─────────────────────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-track {
+  height: 6px;
+  background: linear-gradient(90deg, hsl(224 22% 14%), hsl(224 18% 18%));
+  border-radius: 99px;
+  border: 1px solid hsl(220 22% 18%);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(90deg, hsl(224 22% 14%), hsl(224 18% 18%));
+  border-radius: 99px;
+  border: 1px solid hsl(220 22% 18%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, hsl(214 85% 65%), hsl(194 85% 55%));
+  border: 2px solid hsl(213 30% 90% / .9);
+  box-shadow: 0 0 8px hsl(214 85% 60% / .5), 0 2px 6px hsl(224 36% 2% / .6);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  margin-top: -6px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, hsl(214 85% 65%), hsl(194 85% 55%));
+  border: 2px solid hsl(213 30% 90% / .9);
+  box-shadow: 0 0 8px hsl(214 85% 60% / .5), 0 2px 6px hsl(224 36% 2% / .6);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px hsl(214 85% 60% / .7), 0 2px 8px hsl(224 36% 2% / .7);
+}
+
+/* Accent Amber — Temperatura */
+input[type="range"].accent-amber-400::-webkit-slider-thumb {
+  background: linear-gradient(135deg, hsl(38 95% 65%), hsl(28 90% 55%));
+  box-shadow: 0 0 10px hsl(38 95% 58% / .5), 0 2px 6px hsl(224 36% 2% / .6);
+}
+input[type="range"].accent-amber-400:hover::-webkit-slider-thumb {
+  box-shadow: 0 0 20px hsl(38 95% 58% / .7), 0 2px 8px hsl(224 36% 2% / .7);
+}
+
+/* Accent Cyan */
+input[type="range"].accent-cyan-400::-webkit-slider-thumb {
+  background: linear-gradient(135deg, hsl(194 90% 60%), hsl(184 85% 50%));
+  box-shadow: 0 0 10px hsl(194 90% 55% / .5), 0 2px 6px hsl(224 36% 2% / .6);
+}
+
+/* Accent Purple */
+input[type="range"].accent-purple-400::-webkit-slider-thumb {
+  background: linear-gradient(135deg, hsl(265 80% 68%), hsl(280 75% 55%));
+  box-shadow: 0 0 10px hsl(265 80% 68% / .5), 0 2px 6px hsl(224 36% 2% / .6);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   10. HEADER — Faixa superior institucional
+   ─────────────────────────────────────────────────────────────────── */
+header {
+  position: relative;
+  overflow: hidden;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(194 90% 60% / .5) 20%,
+    hsl(214 85% 65% / .7) 50%,
+    hsl(265 80% 65% / .5) 80%,
+    transparent 100%
+  );
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   11. FOOTER — Rodapé acadêmico
+   ─────────────────────────────────────────────────────────────────── */
+footer {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(214 30% 20% / .7) 30%,
+    hsl(214 30% 20% / .7) 70%,
+    transparent
+  );
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   12. FÓRMULAS MATEMÁTICAS — Estilo acadêmico
+   ─────────────────────────────────────────────────────────────────── */
+.formula-box {
+  font-family: var(--font-mono);
+  background: linear-gradient(135deg, hsl(224 32% 6% / .95), hsl(224 28% 8% / .9));
+  border: 1px solid hsl(214 30% 20% / .6);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  text-align: center;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+  color: hsl(194 80% 72%);
+  box-shadow: inset 0 1px 0 hsl(213 30% 95% / .04), 0 4px 16px hsl(224 36% 2% / .5);
+  position: relative;
+  overflow: hidden;
+}
+
+.formula-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(194 80% 60% / .4), transparent);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   13. BADGES E CHIPS — Indicadores de status
+   ─────────────────────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-family: var(--font-mono);
+}
+
+.badge-cyan    { background: hsl(194 90% 55% / .12); color: hsl(194 90% 68%); border: 1px solid hsl(194 90% 55% / .3); }
+.badge-emerald { background: hsl(158 64% 52% / .12); color: hsl(158 64% 65%); border: 1px solid hsl(158 64% 52% / .3); }
+.badge-amber   { background: hsl(38 95% 58% / .12);  color: hsl(38 95% 68%);  border: 1px solid hsl(38 95% 58% / .3);  }
+.badge-red     { background: hsl(4 82% 60% / .12);   color: hsl(4 82% 72%);   border: 1px solid hsl(4 82% 60% / .3);   }
+
+/* ───────────────────────────────────────────────────────────────────
+   14. PROGRESS BAR — Barras de progresso temáticas
+   ─────────────────────────────────────────────────────────────────── */
+.progress-bar {
+  height: 6px;
+  border-radius: 99px;
+  background: hsl(224 22% 12%);
+  overflow: hidden;
+  border: 1px solid hsl(220 22% 16%);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width var(--transition-slow);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, hsl(213 30% 95% / .25), transparent);
+  animation: shimmerSlide 2s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   15. SECTION DIVIDER
+   ─────────────────────────────────────────────────────────────────── */
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: hsl(213 15% 38%);
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(220 22% 18%), hsl(220 22% 22%), hsl(220 22% 18%), transparent);
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   16. UTILIDADES FINAIS
+   ─────────────────────────────────────────────────────────────────── */
+
+/* Texto com gradiente */
+.text-gradient-blue {
+  background: linear-gradient(135deg, hsl(214 85% 70%), hsl(194 90% 65%), hsl(265 75% 72%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, hsl(38 95% 68%), hsl(25 90% 60%));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Truncar com elipsis */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Font mono utilitário */
 .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono) !important;
+}
+
+/* Sombra de texto leve */
+.text-shadow-sm {
+  text-shadow: 0 1px 4px hsl(224 36% 2% / .8);
+}
+
+/* Ícones com glow */
+.icon-glow-cyan   { filter: drop-shadow(0 0 6px hsl(194 90% 55% / .6)); }
+.icon-glow-amber  { filter: drop-shadow(0 0 6px hsl(38 95% 58% / .6)); }
+
+/* Valor numérico monospaced */
+.value-display {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Pulse de aquecimento ativo */
+.heating-active {
+  animation: dangerPulse 1.4s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   17. ACESSIBILIDADE
+   ─────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   18. PRINT — Folha de impressão acadêmica
+   ─────────────────────────────────────────────────────────────────── */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  header, footer, .glass-card, .glass-elevated {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  button { display: none !important; }
+}
+
+/* ───────────────────────────────────────────────────────────────────
+   19. RESPONSIVIDADE MOBILE
+   ─────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root { font-size: 14px; }
+
+  body {
+    background-size: 20px 20px, 100% 100%, 100% 100%, 100% 100%;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    width: 22px;
+    height: 22px;
+    margin-top: -8px;
+  }
 }
